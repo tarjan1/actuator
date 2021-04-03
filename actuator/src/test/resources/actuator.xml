@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    <context:component-scan base-package="com.huawei.gd.actuator.health"/>
+    <mvc:annotation-driven/>
+    <bean name="viewResolver" class="org.springframework.web.servlet.view.BeanNameViewResolver"/>
+    <bean name="jsonTemplate" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+    <util:constant id="UP"
+                   static-field="com.huawei.gd.actuator.health.core.Health.UP"/>
+    <util:constant id="DOWN"
+                   static-field="com.huawei.gd.actuator.health.core.Health.DOWN"/>
+    <bean id="mock1HealthIndicator" class="com.huawei.gd.actuator.health.spring.Mock1HealthIndicator">
+        <constructor-arg index="0" ref="UP"/>
+        <constructor-arg index="1" value="good"/>
+    </bean>
+    <bean id="mock2HealthIndicator" class="com.huawei.gd.actuator.health.spring.Mock2HealthIndicator">
+        <constructor-arg index="0" ref="DOWN"/>
+        <constructor-arg index="1" value="bad"/>
+    </bean>
+</beans>
